@@ -1,47 +1,34 @@
-# Entity Registry Workflow
+# M&A Target Screening Workflow
 
-This repository is a sanitized portfolio version of an internal data operations project.
+Built a Python-based workflow to validate target-company records, standardize fields, flag exceptions, and improve data quality for downstream deal-sourcing and reporting processes.
 
-It demonstrates how to:
+## What it does
 
-- validate company records from a spreadsheet
-- standardize key fields
-- flag incomplete or inconsistent records
-- detect likely duplicates
-- track processing progress
-- produce clean output and exception reports
+- validates target-company records from a spreadsheet
+- standardizes key fields
+- flags incomplete or inconsistent records
+- detects likely duplicates
+- tracks processing progress
+- produces clean output and exception reports
 
-This version does **not** include:
+## Project scope
+
+This is a sanitized portfolio project built to demonstrate data-quality and workflow design in a finance-relevant context.
+
+It does not include:
 
 - client data
 - credentials
 - proprietary source systems
 - internal business rules
-- production automation steps from the original project
-
-## Project Summary
-
-The workflow is designed for company record intake and review. It reads a flat file of records, applies validation and normalization rules, identifies likely duplicates, and writes three outputs:
-
-- cleaned records
-- exception records
-- processing summary
-
-## Example Use Cases
-
-- vendor onboarding support
-- company master data review
-- research pipeline QA
-- reporting control checks
-- record standardization before CRM import
 
 ## Files
 
-- `src/main.py`: command-line entry point
-- `src/pipeline.py`: validation, normalization, and duplicate review flow
-- `src/progress.py`: run-state tracking
-- `src/config.py`: field settings
-- `sample_data/company_records.csv`: sample input file
+- `src/main.py`
+- `src/pipeline.py`
+- `src/config.py`
+- `src/progress.py`
+- `sample_data/company_records.csv`
 
 ## Run
 
@@ -49,15 +36,15 @@ The workflow is designed for company record intake and review. It reads a flat f
 python -m src.main
 ```
 
-## Outputs
+## Output
 
-The workflow writes output files to `output/`:
+The workflow generates:
 
-- `clean_records.csv`
-- `exception_records.csv`
-- `run_summary.json`
-- `progress.json`
+- clean records
+- exception records
+- processing summary
+- progress tracking
 
-## Resume-Safe Description
+## Resume description
 
-Built a Python-based data QA workflow to validate company records, standardize fields, flag exceptions, and improve reliability of downstream reporting and record management.
+Built a Python workflow to validate target-company records, standardize fields, flag exceptions, and support cleaner downstream deal-sourcing and reporting processes.
