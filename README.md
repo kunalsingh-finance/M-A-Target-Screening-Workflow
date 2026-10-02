@@ -40,8 +40,29 @@ This is a sanitized portfolio project. It intentionally excludes:
 
 ## How to Run
 
+Use Python 3.11 or newer and install the runtime dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
 ```bash
 python -m src.main
+```
+
+To choose an input and output directory:
+
+```bash
+python -m src.main --input sample_data/company_records.csv --output-dir output/demo
+```
+
+The bundled six synthetic records produce **3 clean records, 3 exceptions and 2 duplicate-candidate flags**. All records are retained: possible duplicates go to the exception report for human review rather than being silently accepted or deleted. Duplicate detection compares case-insensitive, whitespace-normalized company names; it does not establish that two legal entities are identical.
+
+Install the development dependencies and run the schema, normalization, duplicate, custom-output and rerun checks with:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
 ```
 
 ## Outputs

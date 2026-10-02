@@ -44,10 +44,11 @@ def apply_quality_checks(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     out["missing_company_name"] = out["company_name"].eq("")
     out["missing_state"] = out["state"].eq("")
-    out["short_address"] = out.get("address", pd.Series([""] * len(out))).str.len().lt(8)
-    out["possible_duplicate"] = out["company_name_key"].duplicated(keep=False)
+    addresses = out.get("address", pd.Series("", index=out.index, dtype=str))
+    out["short_address"] = addresses.fillna("").str.len().lt(8)
+    out["possible_duplicate"] = out["company_name_key"].ne("") & out["company_name_key"].duplicated(keep=False)
     out["has_exception"] = (
-        out["missing_company_name"] | out["missing_state"] | out["short_address"]
+        out["missing_company_name"] | out["missing_state"] | out["short_address"] | out["possible_duplicate"]
     )
     return out
 
@@ -57,13 +58,14 @@ def write_outputs(df: pd.DataFrame, output_dir: Path, stats: RunStats) -> None:
     clean_df = df.loc[~df["has_exception"]].copy()
     exception_df = df.loc[df["has_exception"]].copy()
 
-    clean_df.to_csv(config.CLEAN_FILE, index=False)
-    exception_df.to_csv(config.EXCEPTION_FILE, index=False)
-    config.SUMMARY_FILE.write_text(json.dumps(stats.__dict__, indent=2), encoding="utf-8")
+    clean_df.to_csv(output_dir / config.CLEAN_FILE.name, index=False)
+    exception_df.to_csv(output_dir / config.EXCEPTION_FILE.name, index=False)
+    (output_dir / config.SUMMARY_FILE.name).write_text(json.dumps(stats.__dict__, indent=2), encoding="utf-8")
 
 
-def run_pipeline() -> RunStats:
-    df = load_input(config.INPUT_FILE)
+def run_pipeline(input_file: Path | None = None, output_dir: Path | None = None) -> RunStats:
+    destination = config.OUTPUT_DIR if output_dir is None else Path(output_dir)
+    df = load_input(config.INPUT_FILE if input_file is None else Path(input_file))
     df = normalize_frame(df)
     df = apply_quality_checks(df)
 
@@ -74,6 +76,6 @@ def run_pipeline() -> RunStats:
         duplicate_flags=int(df["possible_duplicate"].sum()),
     )
 
-    write_outputs(df, config.OUTPUT_DIR, stats)
-    save_progress(config.PROGRESS_FILE, stats.total_rows)
+    write_outputs(df, destination, stats)
+    save_progress(destination / config.PROGRESS_FILE.name, stats.total_rows)
     return stats
