@@ -22,7 +22,7 @@ This project demonstrates the workflow design behind that data-quality layer.
 
 ## Project Scope
 
-This workflow was rebuilt from an internal data operations project using sample data and a neutral project structure. It intentionally excludes:
+This workflow uses sample company records and a neutral project structure. It intentionally excludes:
 
 - Client data
 - Credentials
