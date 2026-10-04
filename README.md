@@ -22,7 +22,7 @@ This project demonstrates the workflow design behind that data-quality layer.
 
 ## Project Scope
 
-This is a sanitized portfolio project. It intentionally excludes:
+This workflow was rebuilt from an internal data operations project using sample data and a neutral project structure. It intentionally excludes:
 
 - Client data
 - Credentials
@@ -54,21 +54,16 @@ The workflow generates:
 - Processing summary
 - Progress tracking output
 
-## Skills Demonstrated
+## Methods
 
 - Finance workflow automation
 - Data validation and standardization
 - Exception reporting
 - Duplicate detection
 - Python pipeline structure
-- Sanitized portfolio-project design
 
 ## Limitations
 
 - The project uses sample data and simplified validation rules.
 - It does not model a full deal-screening scorecard.
 - It is meant to demonstrate workflow and data-quality thinking, not proprietary M&A diligence.
-
-## Resume Summary
-
-Built a Python workflow to validate target-company records, standardize fields, flag exceptions, detect likely duplicates, and support cleaner downstream deal-sourcing and reporting processes.

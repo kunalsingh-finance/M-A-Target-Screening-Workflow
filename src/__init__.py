@@ -1,1 +1,1 @@
-# Package marker for the sanitized portfolio project.
+# Package marker for the sanitized target-screening workflow.
